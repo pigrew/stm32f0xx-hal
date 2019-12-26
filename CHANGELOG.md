@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Added "bypass" parameter to Rcc HSE configuration (breaking change)
+
 ## [v0.15.2] - 2019-11-04
 
 ### Changed
