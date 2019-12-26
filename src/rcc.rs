@@ -161,7 +161,7 @@ mod inner {
                     super::HSEBypassMode::NotBypassed => {
                         rcc.cr.modify(|_, w| w.csson().on().hseon().on().hsebyp().not_bypassed());
                     }
-                    super::HSEBypassMode::NotBypassed => {
+                    super::HSEBypassMode::Bypassed => {
                         rcc.cr.modify(|_, w| w.csson().on().hseon().on().hsebyp().bypassed());
                     }
                 }
