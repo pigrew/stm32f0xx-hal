@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Added "bypass" parameter to Rcc HSE configuration (breaking change)
 
+### Fixed
+- RCC: Correct code to enable PLL.
+
 ## [v0.15.2] - 2019-11-04
 
 ### Changed
