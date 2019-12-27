@@ -313,9 +313,9 @@ impl CFGR {
             r_sysclk = src_clk_freq;
         } else {
             let pllmul =
-                (4 * self.sysclk.unwrap_or(src_clk_freq) + src_clk_freq) / src_clk_freq / 2;
+                (4 * self.sysclk.unwrap_or(src_clk_freq) + src_clk_freq) / src_clk_freq / 4;
             let pllmul = core::cmp::min(core::cmp::max(pllmul, 2), 16);
-            r_sysclk = pllmul * src_clk_freq / 2;
+            r_sysclk = pllmul * src_clk_freq;
 
             pllmul_bits = if pllmul == 2 {
                 None
