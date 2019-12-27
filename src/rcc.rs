@@ -100,9 +100,9 @@ mod inner {
 
         // Set PLL source and multiplier
         rcc.cfgr
-            .modify(|_, w| unsafe { w.pllsrc().bit(pllsrc_bit).pllmul().bits(pllmul_bits) });
+            .modify(|_, w| w.pllsrc().bit(pllsrc_bit).pllmul().bits(pllmul_bits));
 
-        rcc.cr.write(|w| w.pllon().set_bit());
+        rcc.cr.modify(|_, w| w.pllon().set_bit());
         while rcc.cr.read().pllrdy().bit_is_clear() {}
 
         rcc.cfgr
@@ -196,7 +196,7 @@ mod inner {
         rcc.cfgr
             .modify(|_, w| w.pllsrc().bits(pllsrc_bit).pllmul().bits(pllmul_bits));
 
-        rcc.cr.write(|w| w.pllon().set_bit());
+        rcc.cr.modify(|w| w.pllon().set_bit());
         while rcc.cr.read().pllrdy().bit_is_clear() {}
 
         rcc.cfgr
