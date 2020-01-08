@@ -83,7 +83,7 @@ mod inner {
         // Select clock source based on user input and capability
         // Highest selected frequency source available takes precedent.
         match c_src {
-            SysClkSource::HSE(freq,_) => *freq,
+            SysClkSource::HSE(freq, _) => *freq,
             _ => HSI,
         }
     }
@@ -91,13 +91,15 @@ mod inner {
     pub(super) fn enable_clock(rcc: &mut RCC, c_src: &SysClkSource) {
         // Enable the requested clock
         match c_src {
-            SysClkSource::HSE(_,bypassed) => {
+            SysClkSource::HSE(_, bypassed) => {
                 match bypassed {
                     super::HSEBypassMode::NotBypassed => {
-                        rcc.cr.modify(|_, w| w.csson().on().hseon().on().hsebyp().not_bypassed());
+                        rcc.cr
+                            .modify(|_, w| w.csson().on().hseon().on().hsebyp().not_bypassed());
                     }
                     super::HSEBypassMode::Bypassed => {
-                        rcc.cr.modify(|_, w| w.csson().on().hseon().on().hsebyp().bypassed());
+                        rcc.cr
+                            .modify(|_, w| w.csson().on().hseon().on().hsebyp().bypassed());
                     }
                 }
                 while !rcc.cr.read().hserdy().bit_is_set() {}
@@ -118,7 +120,7 @@ mod inner {
     ) {
         let pllsrc_bit: bool = match c_src {
             SysClkSource::HSI => false,
-            SysClkSource::HSE(_,_) => true,
+            SysClkSource::HSE(_, _) => true,
         };
 
         // Set PLL source and multiplier
@@ -135,7 +137,7 @@ mod inner {
     pub(super) fn get_sww(c_src: &SysClkSource) -> SWW {
         match c_src {
             SysClkSource::HSI => SWW::HSI,
-            SysClkSource::HSE(_,_) => SWW::HSE,
+            SysClkSource::HSE(_, _) => SWW::HSE,
         }
     }
 }
@@ -170,7 +172,7 @@ mod inner {
         // Select clock source based on user input and capability
         // Highest selected frequency source available takes precedent.
         match c_src {
-            SysClkSource::HSE(freq,_) => *freq,
+            SysClkSource::HSE(freq, _) => *freq,
             SysClkSource::HSI48 => HSI48,
             _ => HSI,
         }
@@ -179,13 +181,15 @@ mod inner {
     pub(super) fn enable_clock(rcc: &mut RCC, c_src: &SysClkSource) {
         // Enable the requested clock
         match c_src {
-            SysClkSource::HSE(_,bypassed) => {
+            SysClkSource::HSE(_, bypassed) => {
                 match bypassed {
                     super::HSEBypassMode::NotBypassed => {
-                        rcc.cr.modify(|_, w| w.csson().on().hseon().on().hsebyp().not_bypassed());
+                        rcc.cr
+                            .modify(|_, w| w.csson().on().hseon().on().hsebyp().not_bypassed());
                     }
                     super::HSEBypassMode::Bypassed => {
-                        rcc.cr.modify(|_, w| w.csson().on().hseon().on().hsebyp().bypassed());
+                        rcc.cr
+                            .modify(|_, w| w.csson().on().hseon().on().hsebyp().bypassed());
                     }
                 }
 
@@ -212,7 +216,7 @@ mod inner {
         let pllsrc_bit: u8 = match c_src {
             SysClkSource::HSI => 0b00,
             SysClkSource::HSI48 => 0b11,
-            SysClkSource::HSE(_,_) => 0b01,
+            SysClkSource::HSE(_, _) => 0b01,
         };
 
         // Set PLL source and multiplier
@@ -230,7 +234,7 @@ mod inner {
         match c_src {
             SysClkSource::HSI => SWW::HSI,
             SysClkSource::HSI48 => SWW::HSI48,
-            SysClkSource::HSE(_,_) => SWW::HSE,
+            SysClkSource::HSE(_, _) => SWW::HSE,
         }
     }
 }
